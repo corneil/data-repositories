@@ -35,22 +35,21 @@ public class DeltaSpikeContactService implements ContactService {
 
     @Override
     public List<Contact> findByCompanyAndName(Company company, String filter) {
-        return repository.findByCompanyAndNameLikeIgnoreCase(company,
-                "%" + filter + "%").getResultList();
+        return repository.findByCompanyAndNameLikeIgnoreCase(company, "%" + filter + "%")
+        		.getResultList();
     }
 
     @Override
     public List<Contact> findPageByCompanyAndName(Company company, String filter,
                                                   int firstrow, int maxrows) {
-        return repository.findByCompanyAndNameLikeIgnoreCase(company,
-                "%" + filter + "%").firstResult(firstrow).maxResults(maxrows).
-                getResultList();
+        return repository.findByCompanyAndNameLikeIgnoreCase(company, "%" + filter + "%")
+        		.firstResult(firstrow).maxResults(maxrows)
+        		.getResultList();
     }
 
     @Override
     public Long countByCompanyAndName(Company company, String filter) {
-        return repository.findByCompanyAndNameLikeIgnoreCase(company,
-                "%" + filter + "%").count();
+        return repository.findByCompanyAndNameLikeIgnoreCase(company, "%" + filter + "%").count();
     }
 
     @Override

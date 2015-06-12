@@ -10,7 +10,12 @@
     <artifactId>vaadin-web</artifactId>
     <name>Vaadin Web Application</name>
     <packaging>war</packaging>
-
+    <properties>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <failOnMissingWebXml>false</failOnMissingWebXml>
+        <maven.compiler.source>1.8</maven.compiler.source>
+        <maven.compiler.target>1.8</maven.compiler.target>
+    </properties>
     <dependencies>
         <dependency>
             <groupId>com.github.jozijug</groupId>
@@ -23,8 +28,8 @@
             <version>1.0-SNAPSHOT</version>
         </dependency>
         <dependency>
-            <groupId>org.apache.openejb</groupId>
-            <artifactId>javaee-api</artifactId>
+            <groupId>javax</groupId>
+            <artifactId>javaee-web-api</artifactId>
             <scope>provided</scope>
         </dependency>
         <dependency>
@@ -35,7 +40,6 @@
         <dependency>
             <groupId>org.vaadin</groupId>
             <artifactId>vaadin-java-ee-essentials</artifactId>
-            <version>1.11</version>
             <type>pom</type>
             <exclusions>
                 <!-- Using add-ons in this example via viritin,
@@ -65,6 +69,30 @@
                 <version>2.6</version>
             </plugin>
             <plugin>
+                <groupId>org.eclipse.jetty</groupId>
+                <artifactId>jetty-maven-plugin</artifactId>
+                <version>9.0.7.v20131107</version>
+                <dependencies>
+                    <dependency>
+                        <groupId>ch.qos.logback</groupId>
+                        <artifactId>logback-classic</artifactId>
+                        <version>1.1.3</version>
+                    </dependency>
+                    <dependency>
+                        <groupId>org.eclipse.osgi</groupId>
+                        <artifactId>org.eclipse.osgi</artifactId>
+                        <type>jar</type>
+                        <version>3.7.1</version>
+                    </dependency>
+                    <dependency>
+                        <groupId>org.apache.geronimo.plugingroups</groupId>
+                        <artifactId>javaee6-web-jetty</artifactId>
+                        <type>pom</type>
+                        <version>3.0.1</version>
+                    </dependency>
+                </dependencies>
+            </plugin>
+            <plugin>
                 <groupId>org.wildfly.plugins</groupId>
                 <artifactId>wildfly-maven-plugin</artifactId>
                 <version>1.0.2.Final</version>
@@ -89,5 +117,40 @@
                 </executions>
             </plugin>
         </plugins>
+        <pluginManagement>
+        	<plugins>
+        		<!--This plugin's configuration is used to store Eclipse m2e settings only. It has no influence on the Maven build itself.-->
+        		<plugin>
+        			<groupId>org.eclipse.m2e</groupId>
+        			<artifactId>lifecycle-mapping</artifactId>
+        			<version>1.0.0</version>
+        			<configuration>
+        				<lifecycleMappingMetadata>
+        					<pluginExecutions>
+        						<pluginExecution>
+        							<pluginExecutionFilter>
+        								<groupId>
+        									in.virit.vwscdn
+        								</groupId>
+        								<artifactId>
+        									vwscdn-maven-plugin
+        								</artifactId>
+        								<versionRange>
+        									[1.3.3,)
+        								</versionRange>
+        								<goals>
+        									<goal>generate</goal>
+        								</goals>
+        							</pluginExecutionFilter>
+        							<action>
+        								<ignore></ignore>
+        							</action>
+        						</pluginExecution>
+        					</pluginExecutions>
+        				</lifecycleMappingMetadata>
+        			</configuration>
+        		</plugin>
+        	</plugins>
+        </pluginManagement>
     </build>
 </project>

@@ -13,5 +13,6 @@ public interface ContactRepository extends EntityRepository<Contact, Long> {
 
     public List<Contact> findByCompany(Company company);
 
-    public QueryResult findByCompanyAndNameLikeIgnoreCase(Company company, String string);
+    public QueryResult<Contact> findByCompanyAndNameLikeIgnoreCase(Company company, String string);
+    
 }

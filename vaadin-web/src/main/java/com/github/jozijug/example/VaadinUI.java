@@ -37,8 +37,6 @@ public class VaadinUI extends UI {
 
     @Inject
     ContactService service;
-    //QueryDslContactService service;
-    //SpringDataContactService service;
 
     @Inject // With Vaadin CDI one can also inject basic ui components
     ContactForm form;
@@ -152,7 +150,7 @@ public class VaadinUI extends UI {
         listEntries();
         entryList.setValue(entryList.firstItemId());
     }
-    @WebServlet(urlPatterns = "/*")
+    // @WebServlet(urlPatterns = "/*")
     @VaadinServletConfiguration(ui = VaadinUI.class, productionMode = false)
     public static class VaadinUIServlet extends VaadinServlet {
     }
