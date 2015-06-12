@@ -10,7 +10,8 @@ import javax.persistence.MappedSuperclass;
 @MappedSuperclass
 public abstract class AbstractEntity implements Serializable, Cloneable {
 
-    @Id
+    private static final long serialVersionUID = -1397128579679911096L;
+	@Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
     

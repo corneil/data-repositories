@@ -13,7 +13,12 @@ import javax.validation.constraints.Size;
 @Entity
 public class Contact extends AbstractEntity {
 
-    @NotNull(message = "Name is required")
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = -5589902469112799674L;
+
+	@NotNull(message = "Name is required")
     @Size(min = 3, max = 40, message = "name must be longer than 3 and less than 40 characters")
     private String name;
 

@@ -9,7 +9,8 @@ import javax.persistence.Entity;
 @Entity
 public class Company extends AbstractEntity {
 
-    private String name;
+	private static final long serialVersionUID = 4976048050860313444L;
+	private String name;
 
     public Company(String name) {
         this.name = name;
