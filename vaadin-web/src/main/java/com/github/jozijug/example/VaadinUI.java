@@ -5,9 +5,11 @@ import com.github.jozijug.jpadomain.Contact;
 import com.github.jozijug.service.ContactService;
 import com.vaadin.annotations.Theme;
 import com.vaadin.annotations.Title;
+import com.vaadin.annotations.VaadinServletConfiguration;
 import com.vaadin.cdi.CDIUI;
 import com.vaadin.server.FontAwesome;
 import com.vaadin.server.VaadinRequest;
+import com.vaadin.server.VaadinServlet;
 import com.vaadin.ui.Alignment;
 import com.vaadin.ui.Button;
 import com.vaadin.ui.Notification;
@@ -16,6 +18,7 @@ import com.vaadin.ui.TextField;
 import com.vaadin.ui.UI;
 import java.util.List;
 import javax.inject.Inject;
+import javax.servlet.annotation.WebServlet;
 
 import org.vaadin.viritin.LazyList;
 import org.vaadin.viritin.button.MButton;
@@ -148,5 +151,9 @@ public class VaadinUI extends UI {
         // List all entries and select first entry in the list
         listEntries();
         entryList.setValue(entryList.firstItemId());
+    }
+    @WebServlet(urlPatterns = "/*")
+    @VaadinServletConfiguration(ui = VaadinUI.class, productionMode = false)
+    public static class VaadinUIServlet extends VaadinServlet {
     }
 }

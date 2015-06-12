@@ -9,11 +9,17 @@
     </parent>
     <artifactId>vaadin-web</artifactId>
     <name>Vaadin Web Application</name>
+    <packaging>war</packaging>
 
     <dependencies>
         <dependency>
             <groupId>com.github.jozijug</groupId>
             <artifactId>data-entities</artifactId>
+            <version>1.0-SNAPSHOT</version>
+        </dependency>
+        <dependency>
+            <groupId>com.github.jozijug</groupId>
+            <artifactId>delta-spike-data</artifactId>
             <version>1.0-SNAPSHOT</version>
         </dependency>
         <dependency>
@@ -42,6 +48,7 @@
         </dependency>
     </dependencies>
     <build>
+        <finalName>${project.artifactId}</finalName>
         <plugins>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
@@ -51,6 +58,11 @@
                     <source>${maven.compiler.source}</source>
                     <target>${maven.compiler.target}</target>
                 </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-war-plugin</artifactId>
+                <version>2.6</version>
             </plugin>
             <plugin>
                 <groupId>org.wildfly.plugins</groupId>
@@ -63,31 +75,6 @@
                         <version>1.4.187</version>
                     </dependency>
                 </dependencies>
-                <executions>
-                    <execution>
-                        <id>add-datasource</id>
-                        <phase>package</phase>
-                        <goals>
-                            <goal>add-resource</goal>
-                        </goals>
-                        <configuration>
-                            <address>subsystem=datasources,data-source=java:jboss/myDs</address>
-                            <resources>
-                                <resource>
-                                    <properties>
-                                        <jndi-name>java:jboss/datasources/ExampleDS</jndi-name>
-                                        <enabled>true</enabled>
-                                        <connection-url>jdbc:h2:mem:test;DB_CLOSE_DELAY=-1</connection-url>
-                                        <driver-class>org.h2.Driver</driver-class>
-                                        <driver-name>h2</driver-name>
-                                        <user-name>sa</user-name>
-                                        <password>sa</password>
-                                    </properties>
-                                </resource>
-                            </resources>
-                        </configuration>
-                    </execution>
-                </executions>
             </plugin>
             <plugin>
                 <groupId>in.virit.vwscdn</groupId>
