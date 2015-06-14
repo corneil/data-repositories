@@ -1,4 +1,4 @@
-package com.github.jozijug.service.springdata;
+package com.github.jozijug.service.querydsl;
 
 import com.github.jozijug.jpadomain.Company;
 import com.github.jozijug.jpadomain.Contact;
@@ -14,6 +14,7 @@ public interface ContactRepository extends JpaRepository<Contact, Long> {
     public Page<Contact> findByCompanyAndNameLikeIgnoreCase(Company company, String filter, Pageable pageable);
 
     public Long countByCompanyAndNameLikeIgnoreCase(Company company, String string);
+    public Long countByCompany_Name(String name);
 
     public List<Contact> findByCompanyAndNameLikeIgnoreCase(Company company, String string);
 }

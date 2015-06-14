@@ -1,4 +1,4 @@
-package com.github.jozijug.service.springdata;
+package com.github.jozijug.service.querydsl;
 
 import com.github.jozijug.jpadomain.Company;
 import com.github.jozijug.jpadomain.Contact;
