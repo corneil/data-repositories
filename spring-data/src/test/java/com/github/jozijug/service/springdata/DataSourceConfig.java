@@ -1,4 +1,4 @@
-package com.github.jozijug.service.querydsl;
+package com.github.jozijug.service.springdata;
 
 import org.apache.commons.dbcp.BasicDataSource;
 import org.springframework.context.annotation.Bean;

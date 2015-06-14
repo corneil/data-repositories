@@ -1,5 +1,6 @@
 package com.github.jozijug.service.querydsl;
 
+import com.github.jozijug.service.querydsl.ModuleConfig;
 import org.apache.commons.dbcp.BasicDataSource;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;

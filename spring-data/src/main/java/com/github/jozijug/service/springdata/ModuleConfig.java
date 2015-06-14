@@ -1,4 +1,4 @@
-package com.github.jozijug.service.querydsl;
+package com.github.jozijug.service.springdata;
 
 /**
  * Created by corneil on 2015/06/14.
