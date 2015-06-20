@@ -5,6 +5,7 @@ package com.github.jozijug.service.springdata;
  */
 import static org.junit.Assert.*;
 
+import com.github.jozijug.jpadomain.Contact;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Configurable;
@@ -12,6 +13,7 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import javax.inject.Inject;
+import java.util.List;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @Configurable
@@ -24,5 +26,13 @@ public class SpringDataTest {
     public void testCountCompanyContacts() {
         long count = contactRepository.countByCompany_Name("BBD");
         assertEquals(46, count);
+    }
+    @Test
+    public void testListCompanyContacts() {
+        List<Contact> results = contactRepository.findByCompany_Name("BBD");
+        assertEquals(46, results.size());
+        for(Contact contact : results) {
+            System.out.println(contact.toString());
+        }
     }
 }

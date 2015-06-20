@@ -1,12 +1,6 @@
 package com.github.jozijug.jpadomain;
 
 import com.github.jozijug.CdiConfig;
-import org.jboss.arquillian.container.test.api.Deployment;
-import org.jboss.arquillian.junit.Arquillian;
-import org.jboss.shrinkwrap.api.ShrinkWrap;
-import org.jboss.shrinkwrap.api.asset.EmptyAsset;
-import org.jboss.shrinkwrap.api.spec.JavaArchive;
-import static org.junit.Assert.*;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Configurable;
@@ -16,7 +10,10 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
 import javax.persistence.Query;
+import javax.persistence.TypedQuery;
 import java.util.List;
+
+import static org.junit.Assert.*;
 
 /**
  * Created by corneil on 2015/06/13.
@@ -40,5 +37,15 @@ public class BasicJpaTest {
             count = ((Number)value).longValue();
         }
         assertEquals(46, count);
+    }
+    @Test
+    public void testListByCompany() {
+        TypedQuery<Contact> query = entityManager.createNamedQuery("Contact.findByCompanyName", Contact.class);
+        query.setParameter("company", "BBD");
+        List<Contact> results = query.getResultList();
+        assertEquals(46, results.size());
+        for(Contact contact : results) {
+            System.out.println(contact.toString());
+        }
     }
 }

@@ -15,6 +15,7 @@ public interface ContactRepository extends JpaRepository<Contact, Long> {
 
     public Long countByCompanyAndNameLikeIgnoreCase(Company company, String string);
     public Long countByCompany_Name(String name);
+    public List<Contact> findByCompany_Name(String name);
 
     public List<Contact> findByCompanyAndNameLikeIgnoreCase(Company company, String string);
 }

@@ -4,6 +4,7 @@ package com.github.jozijug.service.querydsl;
  * Created by corneil on 2015/06/14.
  */
 
+import com.github.jozijug.jpadomain.Contact;
 import com.mysema.query.types.Predicate;
 import org.junit.Test;
 import static org.junit.Assert.*;
@@ -25,6 +26,17 @@ public class QueryDslDataTest {
     public void testCountCompanyContacts() {
         Predicate p = contact.company.name.eq("BBD");
         long count = contactRepository.count(p);
+        assertEquals(46, count);
+    }
+    @Test
+    public void testListCompanyContacts() {
+        Predicate p = contact.company.name.eq("BBD");
+        Iterable<Contact> results = contactRepository.findAll(p);
+        int count = 0;
+        for(Contact contact : results) {
+            count += 1;
+            System.out.println(contact.toString());
+        }
         assertEquals(46, count);
     }
 }

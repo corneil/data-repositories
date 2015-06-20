@@ -1,7 +1,10 @@
 package com.github.jozijug.jpadomain;
 
 import javax.persistence.Entity;
+import javax.persistence.LockModeType;
 import javax.persistence.ManyToOne;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
@@ -11,6 +14,9 @@ import javax.validation.constraints.Size;
  * entity or DTO.
  */
 @Entity
+@NamedQueries({
+        @NamedQuery(name = "Contact.findByCompanyName", query = "select c from Contact c where c.company.name = :company")
+})
 public class Contact extends AbstractEntity {
 
     /**

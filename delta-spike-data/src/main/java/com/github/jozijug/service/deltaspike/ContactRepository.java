@@ -12,7 +12,9 @@ import java.util.List;
 public interface ContactRepository extends EntityRepository<Contact, Long> {
 
     public List<Contact> findByCompany(Company company);
+    public QueryResult<Contact> findByCompany_name(String companyName);
+
 
     public QueryResult<Contact> findByCompanyAndNameLikeIgnoreCase(Company company, String string);
-    
+
 }
