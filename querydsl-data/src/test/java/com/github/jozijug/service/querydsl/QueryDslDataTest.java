@@ -24,13 +24,13 @@ public class QueryDslDataTest {
 
     @Test
     public void testCountCompanyContacts() {
-        Predicate p = contact.company.name.eq("BBD");
+        Predicate p = createContactByCompanyNamePredicate("BBD");
         long count = contactRepository.count(p);
         assertEquals(46, count);
     }
     @Test
     public void testListCompanyContacts() {
-        Predicate p = contact.company.name.eq("BBD");
+        Predicate p = createContactByCompanyNamePredicate("BBD");
         Iterable<Contact> results = contactRepository.findAll(p);
         int count = 0;
         for(Contact contact : results) {
@@ -39,4 +39,7 @@ public class QueryDslDataTest {
         }
         assertEquals(46, count);
     }
+	private Predicate createContactByCompanyNamePredicate(String companyName) {
+		return contact.company.name.eq(companyName);
+	}
 }
