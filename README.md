@@ -1,7 +1,16 @@
-# An example project about various JPA helper libraries for Java EE
+# Examples of Data Repositories using Spring Data JPA, DeltaSpike Data and QueryDSL.
 
-Plain JPA is not necessary the most developer friendly way to implement JPA based persistency. This is an example project that introduces three awesome helper libraries, [SpringData](http://projects.spring.io/spring-data-jpa/), its plain CDI cousin [DeltaSpike Data](https://deltaspike.apache.org/documentation/data.html) and [QueryDSL](http://www.querydsl.com), which can make working with JPA much more efficient (than with the raw API). The example app contains three EJB different implementations for simple phonebook CRUD and shows how the tools can help to implement them.
+This project was derived from [https://github.com/mstahv/jpa-helper-libraries](https://github.com/mstahv/jpa-helper-libraries)
 
-This example has been built to support an article series on the same topic, but this might in the future contain examples of other JPA related helper libraries as well. The UI layer is built using [Vaadin](https://vaadin.com/), but the actual meat is the EJB implementations.
+Using Data Repositories provided an architecturally sound way of implementing a data layer.
 
-To play around with the project, import it in to your favourite IDE and deploy to WilldFly using *mvn wildfly:run* (tested on Wildlfy , but should be easily portable).
+This example project introduces the audience to, [Spring Data JPA](http://projects.spring.io/spring-data-jpa), its plain CDI cousin [DeltaSpike Data](https://deltaspike.apache.org/documentation/data.html) and [QueryDSL](http://www.querydsl.com). 
+The example app contains three EJB different implementations for simple phonebook CRUD and shows how the tools can help to implement them.
+
+The project has separate modules for [JPA Entities](data-entities) and implementations using [Spring Data JPA](spring-data), [DeltaSpike Data](delta-spike-data) and [QueryDSL](querydsl-data).
+Unit Tests have been added to each of the modules.
+The [Web layer](vaadin-web) is built using [vaadin](https://vaadin.com/).
+
+To play around with the project, import it in to your favourite IDE and deploy to WildFly using *mvn --projects vaadin-web wildfly:run*.
+
+ 
