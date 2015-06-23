@@ -11,9 +11,7 @@ import javax.inject.Inject;
 import java.util.List;
 
 /**
- * Spring Data can be used with Java EE projects as well. Just need to expose
- * EntityManager to CDI (see CDIConfig class) and tackle transactions (here with
- * stateless EJB).
+ * @author Corneil du Plessis
  */
 @Stateless
 public class SpringDataContactService implements ContactService {

@@ -1,5 +1,6 @@
 package com.github.jozijug.service.springdata;
 
+import com.github.jozijug.utils.jta.atomikos.AtomikosJtaConfiguration;
 import org.apache.commons.dbcp.BasicDataSource;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
@@ -18,11 +19,11 @@ import java.sql.Connection;
 import java.sql.SQLException;
 
 /**
- * Created by corneil on 2015/06/13.
+ * @author Corneil du Plessis
  */
 @Configuration
 @ComponentScan("com.github.jozijub")
-@Import(ModuleConfig.class)
+@Import({ModuleConfig.class,AtomikosJtaConfiguration.class})
 public class DataSourceConfig {
     BasicDataSource dataSource;
 
@@ -45,7 +46,7 @@ public class DataSourceConfig {
     @Bean(name = "entityManagerFactory")
     public EntityManagerFactory entityManagerFactory() {
         LocalContainerEntityManagerFactoryBean lcemfb = new LocalContainerEntityManagerFactoryBean();
-        lcemfb.setDataSource(createDataSource());
+        lcemfb.setJtaDataSource(createDataSource());
         lcemfb.setJpaDialect(new HibernateJpaDialect());
         lcemfb.setJpaVendorAdapter(jpaVendorAdapter());
         lcemfb.setPackagesToScan("com.github.jozijub");
@@ -54,7 +55,9 @@ public class DataSourceConfig {
         lcemfb.getJpaPropertyMap().put("hibernate.hbm2ddl.auto", "update");
         lcemfb.getJpaPropertyMap().put("hibernate.hbm2ddl.format", "false");
         lcemfb.getJpaPropertyMap().put("hibernate.hbm2ddl.export", "true");
+        lcemfb.getJpaPropertyMap().put("hibernate.transaction.factory_class", "org.hibernate.transaction.JTATransactionFactory");
         lcemfb.getJpaPropertyMap().put("cache.provider_class", "org.hibernate.cache.NoCacheProvider");
+        lcemfb.getJpaPropertyMap().put("hibernate.transaction.jta.platform", "com.github.jozijug.utils.jta.atomikos.AtomikosJtaPlatform");
         lcemfb.afterPropertiesSet();
         return lcemfb.getObject();
     }

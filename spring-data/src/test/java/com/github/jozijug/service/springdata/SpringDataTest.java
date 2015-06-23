@@ -1,10 +1,5 @@
 package com.github.jozijug.service.springdata;
 
-/**
- * Created by corneil on 2015/06/14.
- */
-import static org.junit.Assert.*;
-
 import com.github.jozijug.jpadomain.Contact;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -15,6 +10,11 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import javax.inject.Inject;
 import java.util.List;
 
+import static org.junit.Assert.*;
+
+/**
+ * @author Corneil du Plessis
+ */
 @RunWith(SpringJUnit4ClassRunner.class)
 @Configurable
 @ContextConfiguration(classes = {DataSourceConfig.class})
@@ -27,11 +27,12 @@ public class SpringDataTest {
         long count = contactRepository.countByCompany_Name("BBD");
         assertEquals(46, count);
     }
+
     @Test
     public void testListCompanyContacts() {
         List<Contact> results = contactRepository.findByCompany_Name("BBD");
         assertEquals(46, results.size());
-        for(Contact contact : results) {
+        for (Contact contact : results) {
             System.out.println(contact.toString());
         }
     }

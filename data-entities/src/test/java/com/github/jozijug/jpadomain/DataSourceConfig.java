@@ -4,11 +4,17 @@ import org.apache.commons.dbcp.BasicDataSource;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Import;
+import org.springframework.orm.hibernate4.HibernateExceptionTranslator;
+import org.springframework.orm.jpa.JpaTransactionManager;
 import org.springframework.orm.jpa.JpaVendorAdapter;
 import org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean;
 import org.springframework.orm.jpa.vendor.Database;
 import org.springframework.orm.jpa.vendor.HibernateJpaDialect;
 import org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter;
+import org.springframework.transaction.PlatformTransactionManager;
+import org.springframework.transaction.annotation.EnableTransactionManagement;
+import org.springframework.transaction.jta.JtaTransactionManager;
 import org.springframework.util.Assert;
 
 import javax.enterprise.inject.Produces;
@@ -24,10 +30,11 @@ import java.sql.SQLException;
 /**
  * Created by corneil on 2015/06/13.
  */
+@EnableTransactionManagement
 @Configuration
+@Import({AtomikosJtaConfiguration.class})
 public class DataSourceConfig {
     BasicDataSource dataSource;
-
 
 
     public DataSourceConfig() {
@@ -49,7 +56,7 @@ public class DataSourceConfig {
     @Bean(name = "entityManagerFactory")
     public EntityManagerFactory entityManagerFactory() {
         LocalContainerEntityManagerFactoryBean lcemfb = new LocalContainerEntityManagerFactoryBean();
-        lcemfb.setDataSource(createDataSource());
+        lcemfb.setJtaDataSource(createDataSource());
         lcemfb.setJpaDialect(new HibernateJpaDialect());
         lcemfb.setJpaVendorAdapter(jpaVendorAdapter());
         lcemfb.setPackagesToScan("com.github.jozijub");
@@ -58,7 +65,9 @@ public class DataSourceConfig {
         lcemfb.getJpaPropertyMap().put("hibernate.hbm2ddl.auto", "update");
         lcemfb.getJpaPropertyMap().put("hibernate.hbm2ddl.format", "false");
         lcemfb.getJpaPropertyMap().put("hibernate.hbm2ddl.export", "true");
+        lcemfb.getJpaPropertyMap().put("hibernate.transaction.factory_class", "org.hibernate.transaction.JTATransactionFactory");
         lcemfb.getJpaPropertyMap().put("cache.provider_class", "org.hibernate.cache.NoCacheProvider");
+        lcemfb.getJpaPropertyMap().put("hibernate.transaction.jta.platform", "com.github.jozijug.jpadomain.AtomikosJtaPlatform");
         lcemfb.afterPropertiesSet();
         return lcemfb.getObject();
     }
@@ -76,5 +85,8 @@ public class DataSourceConfig {
         return jpaVendorAdapter;
     }
 
-
+    @Bean
+    public HibernateExceptionTranslator hibernateExceptionTranslator() {
+        return new HibernateExceptionTranslator();
+    }
 }

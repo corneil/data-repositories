@@ -11,7 +11,7 @@ import javax.inject.Inject;
 import java.util.List;
 
 /**
- * Created by corneil on 2015/06/20.
+ * @author Corneil du Plessis
  */
 @RunWith(CdiTestRunner.class)
 public class DeltaSpikeDataTest {

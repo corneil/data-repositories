@@ -9,7 +9,7 @@ import javax.inject.Inject;
 import java.util.List;
 
 /**
- * EJB to hide JPA related stuff from the UI layer.
+ * @author Corneil du Plessis
  */
 @Stateless
 public class DeltaSpikeContactService implements ContactService {

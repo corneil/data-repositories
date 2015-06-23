@@ -1,5 +1,6 @@
 package com.github.jozijug;
 
+import javax.annotation.PostConstruct;
 import javax.enterprise.inject.Disposes;
 import javax.enterprise.inject.Produces;
 import javax.persistence.EntityManager;
@@ -16,7 +17,8 @@ public class CdiConfig {
 
     @Produces
     public EntityManager create() {
-        return emf.createEntityManager();
+        EntityManager entityManager = emf.createEntityManager();
+        return entityManager;
     }
 
     public void close(@Disposes EntityManager em) {

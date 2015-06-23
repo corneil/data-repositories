@@ -6,6 +6,7 @@
     <version>1.0-SNAPSHOT</version>
     <modules>
         <module>data-dep-parent</module>
+        <module>data-utils</module>
         <module>data-entities</module>
         <module>spring-data</module>
         <module>querydsl-data</module>
