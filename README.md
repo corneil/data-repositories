@@ -43,6 +43,11 @@ Select the test and right-click and select Run As -> JUnit Test.
 * Enter '--projects vaadin-web wildfly:run' into Goals
 * Click Run
 
+To run the Vaad UI from the command line execute:  
+```
+mvn --projects vaadin-web wildfly:run
+```
+
 The container will be launched and program deployed.  
 Visit [http://localhost:8080/vaadin-web](http://localhost:8080/vaadin-web) in your browser.
 
