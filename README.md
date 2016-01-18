@@ -1,5 +1,7 @@
 # Examples of Data Repositories using Spring Data JPA, DeltaSpike Data and QueryDSL.
 
+[![Build Status](https://travis-ci.org/corneil/data-repositories.png?branch=master)](https://travis-ci.org/corneil/data-repositories)
+
 This project was derived from [https://github.com/mstahv/jpa-helper-libraries](https://github.com/mstahv/jpa-helper-libraries)
 
 Using Data Repositories provided an architecturally sound way of implementing a data layer.
