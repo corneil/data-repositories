@@ -15,11 +15,14 @@ public interface ContactService {
 
     void delete(Contact value);
 
+    List<Contact> findByCompanyName(String name);
+
     List<Contact> findByCompanyAndName(Company company, String filter);
 
     List<Contact> findPageByCompanyAndName(Company company, String filter,
                                            int firstrow, int maxrows);
 
+    Long countByCompanyName(String name);
     Long countByCompanyAndName(Company company, String filter);
 
     List<Company> findCompanies();

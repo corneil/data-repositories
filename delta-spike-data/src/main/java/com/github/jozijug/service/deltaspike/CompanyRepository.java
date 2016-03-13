@@ -6,7 +6,6 @@ import org.apache.deltaspike.data.api.QueryResult;
 import org.apache.deltaspike.data.api.Repository;
 
 @Repository(forEntity = Company.class)
-
 public interface CompanyRepository extends EntityRepository<Company, Long> {
     QueryResult<Company> findByName(String name);
 }

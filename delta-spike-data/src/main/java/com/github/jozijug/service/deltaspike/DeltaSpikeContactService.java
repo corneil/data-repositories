@@ -13,53 +13,53 @@ import java.util.List;
  */
 @Stateless
 public class DeltaSpikeContactService implements ContactService {
-
     @Inject
     ContactRepository repository;
-
     @Inject
     CompanyRepository companyRepository;
-
     public DeltaSpikeContactService() {
     }
-
     @Override
-    public void save(Contact entry) {
+    public void save(final Contact entry) {
         repository.save(entry);
     }
-
     @Override
-    public void delete(Contact value) {
+    public void delete(final Contact value) {
         repository.remove(value);
     }
-
+    @Override
+    public List<Contact> findByCompanyName(final String name) {
+        return repository.findByCompany_name(name).getResultList();
+    }
+    @Override
+    public Long countByCompanyName(final String name) {
+        return repository.findByCompany_name(name).count();
+    }
     @Override
     public List<Contact> findByCompanyAndName(Company company, String filter) {
         return repository.findByCompanyAndNameLikeIgnoreCase(company, "%" + filter + "%")
-        		.getResultList();
+                .getResultList();
     }
-
     @Override
-    public List<Contact> findPageByCompanyAndName(Company company, String filter,
-                                                  int firstrow, int maxrows) {
+    public List<Contact> findPageByCompanyAndName(Company company,
+                                                  String filter,
+                                                  int firstrow,
+                                                  int maxrows) {
         return repository.findByCompanyAndNameLikeIgnoreCase(company, "%" + filter + "%")
-        		.firstResult(firstrow).maxResults(maxrows)
-        		.getResultList();
+                .firstResult(firstrow)
+                .maxResults(maxrows)
+                .getResultList();
     }
-
     @Override
     public Long countByCompanyAndName(Company company, String filter) {
         return repository.findByCompanyAndNameLikeIgnoreCase(company, "%" + filter + "%").count();
     }
-
     @Override
     public List<Company> findCompanies() {
         return companyRepository.findAll();
     }
-
     @Override
     public Contact refreshEntry(Contact entry) {
         return repository.findBy(entry.getId());
     }
-
 }

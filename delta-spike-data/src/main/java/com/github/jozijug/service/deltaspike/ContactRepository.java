@@ -10,11 +10,7 @@ import java.util.List;
 
 @Repository(forEntity = Contact.class)
 public interface ContactRepository extends EntityRepository<Contact, Long> {
-
-    public List<Contact> findByCompany(Company company);
-    public QueryResult<Contact> findByCompany_name(String companyName);
-
-
-    public QueryResult<Contact> findByCompanyAndNameLikeIgnoreCase(Company company, String string);
-
+    List<Contact> findByCompany(Company company);
+    QueryResult<Contact> findByCompany_name(String companyName);
+    QueryResult<Contact> findByCompanyAndNameLikeIgnoreCase(Company company, String string);
 }
