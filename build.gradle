@@ -1,0 +1,39 @@
+buildscript {
+    repositories {
+        mavenLocal()
+        jcenter()
+        mavenCentral()
+    }
+}
+plugins {
+    id "io.spring.dependency-management" version "0.5.4.RELEASE"
+}
+
+allprojects {
+	apply plugin: 'idea'	
+    group = 'com.github.jozijug'
+    version = '1.0-SNAPSHOT'
+}
+
+subprojects {
+    repositories {
+        mavenLocal()
+        jcenter()
+        mavenCentral()
+        maven { url "http://virit.in/maven2" }
+        maven { url "http://maven.vaadin.com/vaadin-addons" }
+    }
+    apply from: "$rootProject.projectDir/dependencies.gradle"
+	apply plugin: 'java'
+    sourceCompatibility = 1.7
+    targetCompatibility = 1.7
+    test {
+        reports.html.enabled = false
+    }
+}
+
+task testReport(type: TestReport) {
+    destinationDir = file("$buildDir/reports/allTests")
+    // Include the results from the `test` task in all subprojects
+    reportOn subprojects*.test
+}

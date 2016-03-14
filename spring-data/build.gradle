@@ -1,0 +1,36 @@
+apply plugin: 'java'
+description = 'Spring Data Repositories'
+configurations {
+    providedCompile
+}
+
+dependencies {
+    compile project(':data-entities')
+    compile 'org.springframework.data:spring-data-jpa'
+    compile 'org.springframework:spring-orm'
+    compile 'org.springframework:spring-jdbc'
+    compile 'org.springframework:spring-beans'
+    compile 'org.springframework:spring-core'
+    compile 'org.springframework:spring-context'
+    testCompile 'org.jboss.arquillian.junit:arquillian-junit-container'
+    testCompile 'commons-dbcp:commons-dbcp'
+    testCompile 'com.h2database:h2'
+    testCompile 'junit:junit'
+    testCompile 'ch.qos.logback:logback-classic'
+    testCompile 'org.springframework:spring-test'
+    testCompile project(':data-utils')
+    providedCompile 'javax:javaee-web-api'
+}
+
+sourceSets {
+    main {
+        compileClasspath += configurations.providedCompile
+        runtimeClasspath -= configurations.providedCompile
+    }
+    test {
+        compileClasspath += configurations.providedCompile
+        runtimeClasspath -= configurations.providedCompile
+    }
+}
+
+

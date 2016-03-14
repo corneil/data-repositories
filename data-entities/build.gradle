@@ -1,0 +1,76 @@
+plugins {
+    id "com.ewerk.gradle.plugins.querydsl" version "1.0.5"
+}
+configurations {
+    hibernateJpaModelGenTool
+}
+
+apply plugin: 'java'
+apply plugin: com.ewerk.gradle.plugins.QuerydslPlugin
+description = 'JPA Data Entities'
+dependencies {
+    compile 'com.mysema.querydsl:querydsl-core'
+    compile 'com.mysema.querydsl:querydsl-jpa'
+    compile 'org.hibernate:hibernate-validator'
+    compile 'javax.validation:validation-api'
+    compile 'org.hibernate:hibernate-entitymanager'
+    compile 'org.hibernate.javax.persistence:hibernate-jpa-2.1-api'
+    compile 'javax.enterprise:cdi-api'
+    testCompile 'commons-dbcp:commons-dbcp'
+    testCompile 'com.h2database:h2'
+    testCompile 'junit:junit'
+    testCompile 'ch.qos.logback:logback-classic'
+    testCompile 'org.slf4j:jcl-over-slf4j'
+    testCompile 'org.springframework:spring-test'
+    testCompile 'org.springframework:spring-orm'
+    testCompile 'org.springframework:spring-jdbc'
+    testCompile 'org.springframework:spring-beans'
+    testCompile 'org.springframework:spring-core'
+    testCompile 'org.springframework:spring-aop'
+    testCompile 'org.springframework:spring-context'
+    testCompile 'com.atomikos:transactions-jta'
+    hibernateJpaModelGenTool 'org.hibernate:hibernate-jpamodelgen'
+}
+
+querydsl {
+    library = "com.mysema.querydsl:querydsl-apt:$queryDslVersion"
+    jpa = true
+}
+
+def generatedJpaMetamodelSrcDir = file("${buildDir}/generated-src/jpamodelgen/${name}")
+def originalJavaSrcDirs = sourceSets.test.java.srcDirs
+def aptDumpDir = file( buildDir.path + "/tmp/apt" )
+sourceSets {
+    test {
+        java {
+            srcDir generatedJpaMetamodelSrcDir
+        }
+    }
+}
+
+task generateJpaModel(type: JavaCompile) {
+    classpath = compileTestJava.classpath + configurations.hibernateJpaModelGenTool
+    source = originalJavaSrcDirs + sourceSets.main.java.srcDirs
+    destinationDir = aptDumpDir
+    options.define(
+            compilerArgs: [
+                    "-proc:only",
+                    "-processor", "org.hibernate.jpamodelgen.JPAMetaModelEntityProcessor",
+                    "-s", "$generatedJpaMetamodelSrcDir"
+            ]
+    );
+    outputs.dir generatedJpaMetamodelSrcDir;
+    doFirst {
+        generatedJpaMetamodelSrcDir.mkdirs()
+    }
+    doLast {
+        logger.lifecycle 'generateJpaModel:done'
+    }
+}
+compileTestJava {
+    dependsOn generateJpaModel
+}
+
+test {
+    testLogging.showStandardStreams = true
+}

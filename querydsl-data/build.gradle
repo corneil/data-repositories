@@ -1,0 +1,38 @@
+apply plugin: 'java'
+description = 'QueryDSL Spring Data Repositories'
+configurations {
+    providedCompile
+}
+dependencies {
+    compile project(':data-entities')
+    compile 'org.springframework.data:spring-data-jpa'
+    compile 'com.mysema.querydsl:querydsl-core'
+    compile 'com.mysema.querydsl:querydsl-jpa'
+    compile 'org.springframework:spring-orm'
+    compile 'org.springframework:spring-jdbc'
+    compile 'org.springframework:spring-beans'
+    compile 'org.springframework:spring-core'
+    compile 'org.springframework:spring-context'
+    testCompile project(':data-utils')
+    testCompile 'org.jboss.arquillian.junit:arquillian-junit-container'
+    testCompile 'commons-dbcp:commons-dbcp'
+    testCompile 'com.h2database:h2'
+    testCompile 'junit:junit'
+    testCompile 'ch.qos.logback:logback-classic'
+    testCompile 'org.springframework:spring-test'
+    providedCompile 'javax:javaee-web-api'
+}
+
+
+sourceSets {
+    main {
+        compileClasspath += configurations.providedCompile
+        runtimeClasspath -= configurations.providedCompile
+    }
+    test {
+        compileClasspath += configurations.providedCompile
+        runtimeClasspath -= configurations.providedCompile
+    }
+}
+
+
