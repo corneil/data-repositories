@@ -4,5 +4,4 @@ include ':data-entities'
 include ':spring-data'
 include ':querydsl-data'
 include ':delta-spike-data'
-include ':vaadin-web'
 

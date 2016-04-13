@@ -1,8 +1,5 @@
 apply plugin: 'java'
 description = 'Spring Data Repositories'
-configurations {
-    providedCompile
-}
 
 dependencies {
     compile project(':data-entities')
@@ -19,18 +16,5 @@ dependencies {
     testCompile 'ch.qos.logback:logback-classic'
     testCompile 'org.springframework:spring-test'
     testCompile project(':data-utils')
-    providedCompile 'javax:javaee-web-api'
+    compileOnly 'javax:javaee-web-api'
 }
-
-sourceSets {
-    main {
-        compileClasspath += configurations.providedCompile
-        runtimeClasspath -= configurations.providedCompile
-    }
-    test {
-        compileClasspath += configurations.providedCompile
-        runtimeClasspath -= configurations.providedCompile
-    }
-}
-
-

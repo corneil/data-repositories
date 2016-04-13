@@ -1,13 +1,21 @@
 plugins {
     id "com.ewerk.gradle.plugins.querydsl" version "1.0.5"
+    id "com.ewerk.gradle.plugins.annotation-processor" version "1.0.2"
 }
 configurations {
     hibernateJpaModelGenTool
 }
 
+sourceSets {
+    main {
+        // Fixes problem with JPA EntityManager factory requiring classes and persistence.xml in same path
+        output.resourcesDir = output.classesDir
+    }
+}
 apply plugin: 'java'
 apply plugin: com.ewerk.gradle.plugins.QuerydslPlugin
 description = 'JPA Data Entities'
+
 dependencies {
     compile 'com.mysema.querydsl:querydsl-core'
     compile 'com.mysema.querydsl:querydsl-jpa'
@@ -38,8 +46,7 @@ querydsl {
 }
 
 def generatedJpaMetamodelSrcDir = file("${buildDir}/generated-src/jpamodelgen/${name}")
-def originalJavaSrcDirs = sourceSets.test.java.srcDirs
-def aptDumpDir = file( buildDir.path + "/tmp/apt" )
+
 sourceSets {
     test {
         java {
@@ -48,29 +55,15 @@ sourceSets {
     }
 }
 
-task generateJpaModel(type: JavaCompile) {
-    classpath = compileTestJava.classpath + configurations.hibernateJpaModelGenTool
-    source = originalJavaSrcDirs + sourceSets.main.java.srcDirs
-    destinationDir = aptDumpDir
-    options.define(
-            compilerArgs: [
-                    "-proc:only",
-                    "-processor", "org.hibernate.jpamodelgen.JPAMetaModelEntityProcessor",
-                    "-s", "$generatedJpaMetamodelSrcDir"
-            ]
-    );
-    outputs.dir generatedJpaMetamodelSrcDir;
-    doFirst {
-        generatedJpaMetamodelSrcDir.mkdirs()
-    }
-    doLast {
-        logger.lifecycle 'generateJpaModel:done'
-    }
-}
-compileTestJava {
-    dependsOn generateJpaModel
+annotationProcessor {
+    library 'org.hibernate:hibernate-jpamodelgen'
+    processor 'org.hibernate.jpamodelgen.JPAMetaModelEntityProcessor'
+    sourcesDir generatedJpaMetamodelSrcDir.path
 }
 
+
 test {
-    testLogging.showStandardStreams = true
+    if (logger.isInfoEnabled()) {
+        testLogging.showStandardStreams = true
+    }
 }

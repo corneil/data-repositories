@@ -1,37 +1,26 @@
 apply plugin: 'java'
 description = 'Delta Spike Repositories'
-configurations {
-    providedCompile
-}
 dependencies {
     compile project(':data-entities')
     compile 'org.apache.deltaspike.modules:deltaspike-data-module-api'
-    compile 'org.apache.deltaspike.modules:deltaspike-data-module-impl'
+    runtime 'org.apache.deltaspike.modules:deltaspike-data-module-impl'
     testCompile 'org.apache.deltaspike.cdictrl:deltaspike-cdictrl-api'
-    // testCompile 'org.apache.deltaspike.cdictrl:deltaspike-cdictrl-openejb'
-    testCompile 'org.apache.openwebbeans:openwebbeans-spi'
-    testCompile 'org.apache.openwebbeans:openwebbeans-impl'
-    testCompile 'org.apache.openwebbeans:openwebbeans-ejb'
+    testRuntime 'org.apache.openwebbeans:openwebbeans-spi'
+    testRuntime 'org.apache.openwebbeans:openwebbeans-impl'
+    testRuntime 'org.apache.openwebbeans:openwebbeans-ejb'
     testCompile 'org.apache.deltaspike.cdictrl:deltaspike-cdictrl-owb'
     testCompile 'org.apache.deltaspike.modules:deltaspike-test-control-module-api'
-    testCompile 'org.apache.deltaspike.modules:deltaspike-test-control-module-impl'
-    testCompile 'org.apache.geronimo.components:geronimo-transaction'
-    testCompile 'org.apache.openejb:openejb-core'
-    testCompile 'com.h2database:h2'
+    testRuntime 'org.apache.deltaspike.modules:deltaspike-test-control-module-impl'
+    testRuntime 'org.apache.geronimo.components:geronimo-transaction'
+    testRuntime 'org.apache.openejb:openejb-core'
+    testRuntime 'com.h2database:h2'
     testCompile 'junit:junit'
     testCompile 'ch.qos.logback:logback-classic'
-    providedCompile 'javax:javaee-api'
+    compileOnly 'javax:javaee-api'
 }
-
 sourceSets {
     main {
-        compileClasspath += configurations.providedCompile
-        runtimeClasspath -= configurations.providedCompile
-    }
-    test {
-        compileClasspath += configurations.providedCompile
-        runtimeClasspath -= configurations.providedCompile
+        // Fixes problem with JPA EntityManager factory requiring classes and persistence.xml in same path
+        output.resourcesDir = output.classesDir
     }
 }
-
-

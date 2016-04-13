@@ -1,8 +1,5 @@
 apply plugin: 'java'
 description = 'QueryDSL Spring Data Repositories'
-configurations {
-    providedCompile
-}
 dependencies {
     compile project(':data-entities')
     compile 'org.springframework.data:spring-data-jpa'
@@ -20,19 +17,5 @@ dependencies {
     testCompile 'junit:junit'
     testCompile 'ch.qos.logback:logback-classic'
     testCompile 'org.springframework:spring-test'
-    providedCompile 'javax:javaee-web-api'
+    compileOnly 'javax:javaee-web-api'
 }
-
-
-sourceSets {
-    main {
-        compileClasspath += configurations.providedCompile
-        runtimeClasspath -= configurations.providedCompile
-    }
-    test {
-        compileClasspath += configurations.providedCompile
-        runtimeClasspath -= configurations.providedCompile
-    }
-}
-
-

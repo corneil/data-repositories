@@ -20,13 +20,11 @@ subprojects {
         mavenLocal()
         jcenter()
         mavenCentral()
-        maven { url "http://virit.in/maven2" }
-        maven { url "http://maven.vaadin.com/vaadin-addons" }
     }
     apply from: "$rootProject.projectDir/dependencies.gradle"
 	apply plugin: 'java'
-    sourceCompatibility = 1.7
-    targetCompatibility = 1.7
+    sourceCompatibility = 1.8
+    targetCompatibility = 1.8
     test {
         reports.html.enabled = false
     }
@@ -37,3 +35,5 @@ task testReport(type: TestReport) {
     // Include the results from the `test` task in all subprojects
     reportOn subprojects*.test
 }
+
+defaultTasks 'build'

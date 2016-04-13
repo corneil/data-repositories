@@ -1,8 +1,5 @@
 apply plugin: 'java'
 description = 'Data Utilities'
-configurations {
-    providedCompile
-}
 dependencies {
     compile project(':data-entities')
     compile 'org.springframework:spring-test'
@@ -12,19 +9,5 @@ dependencies {
     compile 'org.springframework:spring-core'
     compile 'org.springframework:spring-context'
     compile 'com.atomikos:transactions-jta'
-    providedCompile 'javax:javaee-web-api'
+    compileOnly 'javax:javaee-web-api'
 }
-
-
-sourceSets {
-    main {
-        compileClasspath += configurations.providedCompile
-        runtimeClasspath -= configurations.providedCompile
-    }
-    test {
-        compileClasspath += configurations.providedCompile
-        runtimeClasspath -= configurations.providedCompile
-    }
-}
-
-
