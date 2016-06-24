@@ -29,7 +29,7 @@ If you want to cut down on the wait time in Eclipse you can build the project on
 ```
 gradlew assemble
 ```
-### Building Maven project in Eclipse
+### Building project in Eclipse
 * Select data-repositories project
 * Right-Click and Select Run As -> Gradle Build...
 * Enter 'build' into Tasks
@@ -40,5 +40,11 @@ In order to execute the unit tests in Eclipse locate the Test classes under src/
 Select the test and right-click and select Run As -> JUnit Test.
 
 ### In Intellij IDEA
+* File -> Open..
+* Select the folder
+* Import as Gradle project
+* Select Gradle Tool Window and expand data-repositories / Task 
+* Right click on build and select Run
 
-[<img src="https://www.paypalobjects.com/en_US/i/btn/btn_donate_LG.gif">/<img>](https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=corneil%2eduplessis%40gmail%2ecom&lc=ZA&item_name=Corneil%20du%20Plessis&currency_code=USD&bn=PP%2dDonationsBF%3abtn_donateCC_LG%2egif%3aNonHosted)
+
+[<br/><br/><img width="48px" height="48px" src="https://raw.githubusercontent.com/corneil/spring-data-rest-angular-demo/master/buy-me-coffee.png"><img><br/><span style="font-size: x-small">Buy me Coffee</span>](https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=corneil%2eduplessis%40gmail%2ecom&lc=ZA&item_name=Corneil%20du%20Plessis&currency_code=USD&bn=PP%2dDonationsBF%3abtn_donateCC_LG%2egif%3aNonHosted)
